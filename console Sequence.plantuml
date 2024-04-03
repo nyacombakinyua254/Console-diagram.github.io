@@ -1,0 +1,44 @@
+@startuml Tuende Africa Console SequenceDiagram
+
+title  Tuende Africa Console Sequence Diagram
+
+actor User
+participant TuendeAfrica
+actor Rider as Baraka_Muzabi
+participant RiderService
+participant UserService
+
+User->TuendeAfrica: Dial *335# (Tuende Africa USSD code)
+TuendeAfrica->User: Logged in to mobile app
+TuendeAfrica->User: Send request message: 1.Book a ride, 2.request for delivery, 3.go back
+User->TuendeAfrica: 1 (Book a ride)
+TuendeAfrica->User: Send request message: 1.Bike, 2.bicycle, 3.cart
+User->TuendeAfrica: 2 (Bicycle)
+TuendeAfrica->User: Send request message: 1.Pick up and drop off
+User->TuendeAfrica: 1 (Pick up and drop off)
+TuendeAfrica->User: Send request message: Rides available (1.Ali Hussein, 2.Ann Nkosi, 3.Baraka Muzabi)
+User->TuendeAfrica: 3 (Baraka Muzabi)
+TuendeAfrica->RiderService: Notify Rider (RiderService notifies the Rider)
+RiderService->Rider: Notification (Rider gets notified for a ride request)
+Rider->User: Phone call (Rider calls client)
+User->Rider: Communication and location sharing
+Rider->User: Pick up at location
+Rider->User: Start ride
+Rider->User: Drop off client at destination
+Rider->User: End ride
+TuendeAfrica->User: Notification: Payment options (1.Cash, 2.Mobile money)
+User->TuendeAfrica: 2 (Mobile money)
+TuendeAfrica->UserService: Directed to toolkit: 1.GSM option
+User->TuendeAfrica: 1 (GSM)
+TuendeAfrica->User: Options: 1.Orange, 2.GSM
+User->TuendeAfrica: 1 (Orange)
+TuendeAfrica->User: Options: 1.Send money, 2.withdraw cash, 3.buy airtime, 4.loan and savings, 5.lipa na GSM, 6.my account
+User->TuendeAfrica: 1. (Send money)
+TuendeAfrica->UserService: Send request message: 1.Enter phone number
+User->TuendeAfrica: 1.Phone number
+TuendeAfrica->UserService: Send request message: 1.Enter pin
+User->TuendeAfrica: Inserts their pin
+TuendeAfrica->User: Notification message: Paid CDF 70 to Baraka Muzabi. Time 12:00am on Wednesday
+User->TuendeAfrica: click Ok to (Exit)
+
+@enduml
